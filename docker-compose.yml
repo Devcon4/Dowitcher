@@ -1,0 +1,24 @@
+version: "3.4"
+services:
+  coredns:
+    build: ./coredns
+    ports:
+      - 53:53/udp
+  redislabs:
+    image: redislabs/redisinsight:latest
+    ports:
+      - 4410:8001
+    volumes:
+      - redislabs_data:/db
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin@cyphers.dev
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - pgadmin_data:/root/.pgadmin
+    ports:
+      - 4420:80
+volumes:
+  redislabs_data:
+  pgadmin_data:
